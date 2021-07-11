@@ -3,7 +3,7 @@ import sqlite3
 from datetime import datetime
 
 # Steps with commands for creating table "posts":
-# 1.source venv/bin/activate
+# 1. ./env/Scripts/activate
 # 2.sqlite3 blog.sqlite
 # 3.CREATE TABLE POSTS(Id integer primary key AUTOINCREMENT, Title text, Description text, Date text);
 
@@ -21,6 +21,34 @@ def show():
     fields = cursor.fetchall()
     connection.close()
     return render_template('show.html', fields=fields)
+
+@app.route('/add', methods=['GET', 'POST'])
+def get_title():
+    """На странице отображается форма для ввода титула и описания новой должности.
+    Система добавляет созданную позицию в блог под новым эксклюзивным идентификатором.
+    После добавления новой позиции с идентификатором, названием, описанием и текущим временем,
+    система перенаправляет пользователя на обновленную страницу со всеми сообщениями в блоге."""
+    if request.method == 'GET':
+        response = make_response(render_template('add.html'))
+    elif request.method == 'POST':
+        tittle = request.form['Tittle']
+        description = request.form['Description']
+        if not tittle:
+            return 'Sorry, you should insert tittle'
+        if not description:
+            return 'Sorry, you should insert description'
+        now = datetime.now()
+        date = now.strftime("%d/%m/%Y %H:%M:%S")
+        connection = sqlite3.connect("blog.sqlite")
+        cursor = connection.cursor()
+        values = (tittle, description, date)
+        cursor.execute("""insert into POSTS ( Title,Description,Date)
+                   VALUES               (  ?,             ?,             ? )""",
+                       values)
+        connection.commit()
+        connection.close()
+        response= redirect("/show")
+    return response
 
 @app.route('/edit', methods=['GET', 'POST'])
 def edit():
