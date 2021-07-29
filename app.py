@@ -8,7 +8,8 @@ import sqlite3
 # 2.sqlite3 blog.sqlite
 # 3.CREATE TABLE POSTS(Id integer primary key AUTOINCREMENT, Title text, Description text, Date text);
 
-app = Flask(___name___)
+app = Flask(__name__)
+
 
 @app.route('/')
 @app.route('/show')
@@ -22,6 +23,7 @@ def show():
     fields = cursor.fetchall()
     connection.close()
     return render_template('show.html', fields=fields)
+
 
 @app.route('/add', methods=['GET', 'POST'])
 def get_title():
@@ -51,6 +53,7 @@ def get_title():
         response= redirect("/show")
     return response
 
+
 @app.route('/edit', methods=['GET', 'POST'])
 def edit():
     """TЭта страница предоставит пользователю доступ к обновлению названия и описания любой существующей позиции в блоге.
@@ -74,6 +77,7 @@ def edit():
         connection.close()
         response= redirect("/show")
     return response
+
 
 @app.route('/delete', methods=['GET', 'POST'])
 def delete():
