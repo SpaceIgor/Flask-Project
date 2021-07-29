@@ -1,13 +1,14 @@
+from datetime import datetime
 from flask import Flask, render_template, request, make_response, redirect
 import sqlite3
-from datetime import datetime
+
 
 # Steps with commands for creating table "posts":
 # 1. ./env/Scripts/activate
 # 2.sqlite3 blog.sqlite
 # 3.CREATE TABLE POSTS(Id integer primary key AUTOINCREMENT, Title text, Description text, Date text);
 
-app = Flask(__name__)
+app = Flask(___name___)
 
 @app.route('/')
 @app.route('/show')
