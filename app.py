@@ -50,7 +50,7 @@ def get_title():
                        values)
         connection.commit()
         connection.close()
-        response= redirect("/show")
+        response = redirect("/show")
     return response
 
 
@@ -75,7 +75,7 @@ def edit():
                        values)
         connection.commit()
         connection.close()
-        response= redirect("/show")
+        response = redirect("/show")
     return response
 
 
@@ -93,9 +93,8 @@ def delete():
         cursor.execute('''DELETE FROM POSTS WHERE Id = ?''', (id))
         connection.commit()
         connection.close()
-        response= redirect("/show")
+        response = redirect("/show")
     return response
-
 
 
 if __name__ == '__main__':
