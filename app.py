@@ -1,6 +1,7 @@
+from datetime import datetime
 from flask import Flask, render_template, request, make_response, redirect
 import sqlite3
-from datetime import datetime
+
 
 # Steps with commands for creating table "posts":
 # 1. ./env/Scripts/activate
@@ -8,6 +9,7 @@ from datetime import datetime
 # 3.CREATE TABLE POSTS(Id integer primary key AUTOINCREMENT, Title text, Description text, Date text);
 
 app = Flask(__name__)
+
 
 @app.route('/')
 @app.route('/show')
@@ -21,6 +23,7 @@ def show():
     fields = cursor.fetchall()
     connection.close()
     return render_template('show.html', fields=fields)
+
 
 @app.route('/add', methods=['GET', 'POST'])
 def get_title():
@@ -47,8 +50,9 @@ def get_title():
                        values)
         connection.commit()
         connection.close()
-        response= redirect("/show")
+        response = redirect("/show")
     return response
+
 
 @app.route('/edit', methods=['GET', 'POST'])
 def edit():
@@ -71,8 +75,9 @@ def edit():
                        values)
         connection.commit()
         connection.close()
-        response= redirect("/show")
+        response = redirect("/show")
     return response
+
 
 @app.route('/delete', methods=['GET', 'POST'])
 def delete():
@@ -88,9 +93,8 @@ def delete():
         cursor.execute('''DELETE FROM POSTS WHERE Id = ?''', (id))
         connection.commit()
         connection.close()
-        response= redirect("/show")
+        response = redirect("/show")
     return response
-
 
 
 if __name__ == '__main__':
