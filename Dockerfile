@@ -8,4 +8,4 @@ RUN pip install -r requirements.txt
 
 ENV FLASK_ENV=development
 
-CMD ["flask", "run", "-h", "0.0.0.0", "-p", "80"]
+CMD ["gunicorn", "app:app", "-b", "0.0.0.0:8000"]

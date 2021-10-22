@@ -1,16 +1,14 @@
 version: "3.3"
 
-
 services:
   app:
     build: .
-    volumes:
-      - ./:/code
+
   nginx:
     build:
       context: .
       dockerfile: nginX/Dockerfile
     ports:
-      - "127.0.0.1:80:80"
+      - "80:80"
     depends_on:
       - app
